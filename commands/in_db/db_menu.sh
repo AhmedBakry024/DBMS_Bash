@@ -1,7 +1,7 @@
 current_db=$1
 db_path="databases/$current_db"
 
-
+echo ""
 while true; do
     echo "Database Menu for '$current_db':"
     echo "1) Create Table"
@@ -17,7 +17,7 @@ while true; do
     case $choice in
         1)
             read -p "Enter table name to create: " tablename
-            # TODO: Create Table script
+            ./commands/in_db/create_table.sh "$current_db" "$tablename"
             ;;
         2)
             echo ""
@@ -31,7 +31,7 @@ while true; do
             ;;
         4)
             read -p "Enter table name to insert into: " tablename
-            # TODO: Insert into Table script
+            ./commands/in_db/insert.sh "$current_db" "$tablename"
             ;;
         5)
             read -p "Enter table name to select from: " tablename
