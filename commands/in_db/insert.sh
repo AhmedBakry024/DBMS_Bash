@@ -5,7 +5,9 @@ table_name=$2
 db_path="databases/$current_db"
 table_path="$db_path/$table_name"
 
-if [ ! -f "$table_path" ]; then
+source ./commands/helper.sh
+
+if ! is_file "$table_path"; then
     echo "Table '$table_name' does not exist in database '$current_db'."
     exit 1
 fi

@@ -1,5 +1,14 @@
+#!/bin/bash
+
+source ./commands/helper.sh
+
 current_db=$1
 db_path="databases/$current_db"
+
+if ! is_directory "$db_path"; then
+    echo "Database '$current_db' does not exist."
+    exit 1
+fi
 
 echo ""
 while true; do
@@ -35,15 +44,15 @@ while true; do
             ;;
         5)
             read -p "Enter table name to select from: " tablename
-            # TODO: Select from Table script
+            ./commands/in_db/select.sh "$current_db" "$tablename"
             ;;
         6)
             read -p "Enter table name to delete from: " tablename
-            # TODO: Delete from Table script
+            ./commands/in_db/delete.sh "$current_db" "$tablename"
             ;;
         7)
             read -p "Enter table name to update: " tablename
-            # TODO: Update Table script
+            ./commands/in_db/update.sh "$current_db" "$tablename"
             ;;
         8)
             echo "Returning to Main Menu..."
