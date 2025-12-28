@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source commands/helper.sh
 
 if is_directory "databases/$1"; then

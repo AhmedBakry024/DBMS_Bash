@@ -1,3 +1,4 @@
+#!/bin/bash
 
 source ./commands/helper.sh
 

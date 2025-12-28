@@ -12,7 +12,6 @@ if ! is_file "$table_path"; then
     exit 1
 fi
 
-# get the column numbers from the user to select and ask if he want to add a where condition
 IFS=',' read -r -a columns < "$table_path"
 echo "Available columns in table '$table_name':"
 col_index=0
@@ -33,7 +32,6 @@ if [[ "$where_choice" =~ ^[Yy]$ ]]; then
     read -p "Enter the WHERE condition (e.g., column_name=value): " condition
     IFS='=' read -r cond_col cond_value <<< "$condition"
     
-    # Get the column index for the condition
     IFS=',' read -r -a columns_check < "$table_path"
     cond_col_index=-1
     for i in "${!columns_check[@]}"; do
@@ -52,7 +50,6 @@ if [[ "$where_choice" =~ ^[Yy]$ ]]; then
     where_clause="$cond_col='$cond_value'"
 fi
 
-# construct the grep and cut commnands to select the data desired
 cut_indices=()
 for num in "${col_nums[@]}"; do
     cut_indices+=("$((num + 1))")
@@ -65,5 +62,3 @@ else
     grep_command="cat \"$table_path\""
 fi
 eval "$grep_command" | cut -d',' -f"$cut_command"
-echo "Selection completed from table '$table_name' in database '$current_db'."
-

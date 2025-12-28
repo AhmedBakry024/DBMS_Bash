@@ -30,7 +30,6 @@ while true; do
             ;;
         2)
             echo ""
-            # echo "Current Tables in '$current_db':"
             ./commands/in_db/list_tables.sh "$current_db"
             echo ""
             ;;

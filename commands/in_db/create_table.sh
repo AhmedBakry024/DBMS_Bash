@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source ./commands/helper.sh
 
 db_path="databases/$1"
@@ -5,6 +7,9 @@ table_path="$db_path/$2"
 
 if is_file "$table_path"; then
     echo "Table '$2' already exists in database '$1'."
+    exit 1
+elif ! is_valid_name "$2"; then
+    echo "Invalid table name '$2'. Table names must start with a letter and can contain only letters, numbers, and underscores."
     exit 1
 else
     touch "$table_path"

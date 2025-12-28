@@ -33,7 +33,6 @@ if [[ "$where_choice" =~ ^[Yy]$ ]]; then
     read -p "Enter the WHERE condition (e.g., column_name=value): " condition
     IFS='=' read -r cond_col cond_value <<< "$condition"
     
-    # Get the column index for the condition
     IFS=',' read -r -a columns_check < "$table_path"
     cond_col_index=-1
     for i in "${!columns_check[@]}"; do
@@ -64,7 +63,7 @@ temp_file="$(mktemp)"
         else
             row[$update_col_num]="$new_value"
         fi
-        echo "${row[*]}" | tr ' ' ','
+        (IFS=','; echo "${row[*]}")
     done
 } < "$table_path" >> "$temp_file"
 mv "$temp_file" "$table_path"

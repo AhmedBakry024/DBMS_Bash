@@ -17,7 +17,6 @@ read -p "Enter the condition for deletion (e.g., column_name=value): " condition
 IFS='=' read -r cond_col cond_value <<< "$condition"
 
 
-# Get the column index for the condition
 IFS=',' read -r -a columns < "$table_path"
 cond_col_index=-1
 for i in "${!columns[@]}"; do
@@ -38,7 +37,7 @@ temp_file="$(mktemp)"
     echo "$header_line" > "$temp_file"
     while IFS=',' read -r -a row; do
         if [[ "${row[$cond_col_index]}" != "$cond_value" ]]; then
-            echo "${row[*]}" | tr ' ' ','
+            (IFS=','; echo "${row[*]}")
         fi
     done
 } < "$table_path" >> "$temp_file"
