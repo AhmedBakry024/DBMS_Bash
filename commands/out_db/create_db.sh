@@ -4,6 +4,6 @@ source commands/helper.sh
 if is_directory "databases/$1"; then
     echo "Database '$1' already exists."
 else
-    mkdir "databases/$1"
+    mkdir -p "databases/$1"
     echo "Database '$1' created successfully."
 fi
