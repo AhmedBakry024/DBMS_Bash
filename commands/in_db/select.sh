@@ -54,11 +54,15 @@ cut_indices=()
 for num in "${col_nums[@]}"; do
     cut_indices+=("$((num + 1))")
 done
-cut_command=$(IFS=, ; echo "${cut_indices[*]}")
+cut_command=$(IFS=',' ; echo "${cut_indices[*]}")
+
+echo ""
+
 if [ -n "$where_clause" ]; then
-    echo `head -1 "$table_path"` | cut -d',' -f"$cut_command"
+    head -1 "$table_path" | cut -d',' -f"$cut_command" | tr ',' '\t' | column -t -s $'\t'
     grep_command="grep -E '^([^,]*,){${where_col_num}}$where_value(,|$)' \"$table_path\""
 else
     grep_command="cat \"$table_path\""
 fi
-eval "$grep_command" | cut -d',' -f"$cut_command"
+
+eval "$grep_command" | cut -d',' -f"$cut_command" | tr ',' '\t' | column -t -s $'\t'

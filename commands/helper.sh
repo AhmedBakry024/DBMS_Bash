@@ -1,4 +1,5 @@
-# check if argument is a directory
+#!/bin/bash
+
 is_directory() {
     if [ -d "$1" ]; then
         return 0
