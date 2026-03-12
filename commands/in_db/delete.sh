@@ -13,7 +13,11 @@ if ! is_file "$table_path"; then
     exit 1
 fi
 
-read -p "Enter the condition for deletion (e.g., column_name=value): " condition
+if [ $# -ge 3 ] && [ -n "$3" ]; then
+    condition="$3"
+else
+    read -p "Enter the condition for deletion (e.g., column_name=value): " condition
+fi
 IFS='=' read -r cond_col cond_value <<< "$condition"
 
 
